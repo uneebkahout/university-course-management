@@ -10,7 +10,7 @@ The **University Course Management** system is designed to handle the following 
 - Student and faculty profiles
 - Department and course management
 - Course enrollment and grading
-- Class scheduling and attendance tracking
+-  attendance tracking
 - Assignments and submissions
 - Announcements and events
 - Feedback and course evaluations
