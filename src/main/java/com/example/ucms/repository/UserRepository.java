@@ -1,4 +1,7 @@
 package com.example.ucms.repository;
 
-public interface UserRepository extends  JBA{
+import com.example.ucms.entity.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<Users, Integer> {
 }

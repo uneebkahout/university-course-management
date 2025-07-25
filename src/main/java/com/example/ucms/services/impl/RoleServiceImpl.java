@@ -14,9 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleServices {
-
     private final RoleRepository roleRepository;
-
     @Override
     public void createRole(roleRequest request) {
         Roles ro = Roles.builder()
@@ -31,10 +29,10 @@ public class RoleServiceImpl implements RoleServices {
     }
 
     @Override
-    public roleResponse updateRole(int role_id, roleRequest request) {
+    public void updateRole(int role_id, roleRequest request) {
         Roles ro=roleRepository.findById(role_id).orElseThrow(() -> new ResourceNotFoundException("Role not Found with this id" + role_id));
         ro.setRole_name(request.role_name());
-        return  mapToResponse(roleRepository.save(ro));
+        mapToResponse(roleRepository.save(ro));
     }
 
     @Override

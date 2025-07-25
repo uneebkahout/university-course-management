@@ -1,6 +1,5 @@
 package com.example.ucms.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,15 +8,16 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "Roles")  // Exact match with DB table name
-public class Roles {
+@Table(name = "Departments")
+public class Departments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id") // Explicit column mapping
-    private int role_id;
-    @Column(name = "role_name") // Explicit column mapping
-    private String role_name;
+    private  int department_id;
+    private  String department_name;
+    private String head_of_department;
+    private String office_location;
+
 }
