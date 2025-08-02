@@ -2,7 +2,6 @@ package com.example.ucms.services.impl;
 
 import com.example.ucms.DTO.users.UserRequest;
 import com.example.ucms.DTO.users.UserResponse;
-import com.example.ucms.config.SecurityConfiguration;
 import com.example.ucms.entity.Users;
 import com.example.ucms.exception.ResourceNotFoundException;
 import com.example.ucms.repository.UserRepository;

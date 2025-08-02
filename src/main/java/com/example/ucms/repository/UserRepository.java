@@ -1,8 +1,8 @@
 package com.example.ucms.repository;
 
 import com.example.ucms.entity.Users;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 

@@ -23,7 +23,7 @@ import java.util.List;
 public class RoleController {
 private  final RoleServices roleServices;
 
-@PostMapping("/api/addRole")
+@PostMapping("/api/auth/addRole")
     public ResponseEntity<ApiSuccessResponse> addRole(@Valid @RequestBody roleRequest roleRequest, HttpServletRequest request){
         roleServices.createRole(roleRequest);
     ApiSuccessResponse response = ApiSuccessResponse.builder()
@@ -34,7 +34,7 @@ private  final RoleServices roleServices;
     return new ResponseEntity<>(response, HttpStatus.CREATED);
 }
 
-    @GetMapping("/api/getAllRole")
+    @GetMapping("/api/auth/getAllRole")
     public ResponseEntity<List<roleResponse>> getRole(){
     return  ResponseEntity.ok(roleServices.getAllRoles());
     }

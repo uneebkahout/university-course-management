@@ -20,7 +20,7 @@ public class UserController {
     private final UserServices userServices;
 
 
-    @PostMapping("/api/addUser")
+    @PostMapping("/api/auth/addUser")
     public ResponseEntity<ApiSuccessResponse> addUser(@Valid @RequestBody UserRequest userRequest, HttpServletRequest request){
         userServices.createUser(userRequest);
         ApiSuccessResponse response = ApiSuccessResponse.builder()
@@ -32,7 +32,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/api/getUser")
+    @GetMapping("/api/auth/getUser")
     public ResponseEntity<ApiResponseWithData<List<UserResponse>>> getUser(){
           List<UserResponse> user = userServices.getAllUser();
         ApiResponseWithData<List<UserResponse>> response = ApiResponseWithData.<List<UserResponse>>builder()
