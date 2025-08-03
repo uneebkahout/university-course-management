@@ -21,11 +21,6 @@ public class AutController {
     @PostMapping("/api/auth/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest , HttpServletRequest request){
       LoginResponse response =  autServices.Login(loginRequest);
-//        ApiSuccessResponse response = ApiSuccessResponse.builder()
-//                .status(HttpStatus.OK.value())
-//                .path(request.getRequestURI())
-//                .message("Login Successfully")
-//                .build();
         return  new ResponseEntity<>(response , HttpStatus.CREATED);
     }
 

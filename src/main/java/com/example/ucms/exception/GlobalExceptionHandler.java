@@ -1,19 +1,56 @@
 package com.example.ucms.exception;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.nio.file.AccessDeniedException;
 import java.util.stream.Collectors;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
+@ExceptionHandler(BadCredentialsException.class)
+public ResponseEntity<ApiErrorResponse> handleBadCredential(BadCredentialsException exception  , HttpServletRequest request){
+    ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+            .status(HttpStatus.UNAUTHORIZED.value())
+            .error("Invalid Credential")
+            .message("Invalid email or Password")
+            .path(request.getRequestURI())
+            .build();
+    return  new ResponseEntity<>(errorResponse , HttpStatus.UNAUTHORIZED);
+}
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiErrorResponse> handleJwtException(JwtException exception, HttpServletRequest request){
+        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+                .error("Invalid Jwt Token")
+                .message("Invalid Session")
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .path(request.getRequestURI())
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+
+@ExceptionHandler(AccessDeniedException.class)
+public ResponseEntity<ApiErrorResponse> handleAccessDenied(AccessDeniedException exception, HttpServletRequest request){
+    ApiErrorResponse errorResponse = ApiErrorResponse
+            .builder()
+            .status(HttpStatus.FORBIDDEN.value())
+            .path(request.getRequestURI())
+            .message("Invalid Session")
+            .error("Please Check your session Token")
+            .build();
+        return  new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+}
 
 @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleNotFound(ResourceNotFoundException ex , HttpServletRequest request){
@@ -27,6 +64,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse ,HttpStatus.NOT_FOUND);
 
 }
+
+
 
 @ExceptionHandler(MethodArgumentNotValidException.class)
 public  ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex , HttpServletRequest request){

@@ -1,6 +1,7 @@
 package com.example.ucms.security;
 
 import com.example.ucms.entity.Users;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,11 @@ private  String jwtSecretKey;
         return Jwts.builder().subject(user.getUsername())
                 .claim("userId", user.getUser_id())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+ 1000*60*10)).compact();
+                .expiration(new Date(System.currentTimeMillis()+ 1000*60*10)).signWith(getSecretKey()).compact();
+    }
+
+    public String getUserNameFromToken(String token) {
+    Claims claims = Jwts.parser().verifyWith(getSecretKey()).build().parseSignedClaims(token).getPayload();
+    return  claims.getSubject();
     }
 }
